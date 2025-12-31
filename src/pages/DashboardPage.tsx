@@ -8,7 +8,7 @@ import {
     ListItemButton,
     ListItemIcon,
     ListItemText,
-    Divider,
+   
     Drawer,
     IconButton,
 } from '@mui/material';
@@ -24,7 +24,6 @@ import logo from '../assets/logo.png';
 
 
 
-// Import custom icons from Figma
 import eventIcon from '../assets/event.png';
 import communicationIcon from '../assets/communication.png';
 import calendarIcon from '../assets/calendar_view_month.png';
@@ -155,7 +154,7 @@ const DashboardPage: React.FC = () => {
                 ))}
             </List>
 
-            <Divider sx={{ mx: 2 }} />
+           
 
             {/* Logout at bottom */}
             <Box sx={{ p: 2 }}>
