@@ -20,8 +20,9 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import type { UserData } from '../types/user';
 
-
+import PersonalData from '../components/Dashboard/PersonalData';
 
 
 import eventIcon from '../assets/event.png';
@@ -45,7 +46,7 @@ const SidebarIcon = ({ src }: { src: string }) => (
             width: 24,
             height: 24,
             objectFit: 'contain',
-           
+            
         }}
     />
 );
@@ -55,17 +56,17 @@ const DashboardPage: React.FC = () => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [userName, setUserName] = React.useState('Employee User');
     const [userAvatar, setUserAvatar] = React.useState('');
-  
+    const [userData, setUserData] = React.useState<UserData | null>(null);
     const [currentView, setCurrentView] = React.useState<'welcome' | 'personalData'>('welcome');
 
-    /* On mount, we retrieve the cached user session from localStorage to reconstruct */
+    /*the personalized state without requiring a fresh login on page reload.*/
     React.useEffect(() => {
         const storedName = localStorage.getItem('user_name');
         const storedAvatar = localStorage.getItem('user_avatar');
-       
+        const storedData = localStorage.getItem('user_data');
         if (storedName) setUserName(storedName);
         if (storedAvatar) setUserAvatar(storedAvatar);
-        
+        if (storedData) setUserData(JSON.parse(storedData));
     }, []);
 
     const handleDrawerToggle = () => {
@@ -278,7 +279,21 @@ const DashboardPage: React.FC = () => {
                     </Box>
                 </Box>
 
-              
+                {/* Page Content Holder */}
+                <Box
+                    sx={{
+                        flexGrow: 1,
+                        p: { xs: 2, sm: 4 },
+                        bgcolor: '#f5f7f9',
+                        width: '100%'
+                    }}
+                >
+                    {currentView === 'welcome' ? (
+                        <Box />
+                    ) : (
+                        <PersonalData userName={userName} userAvatar={userAvatar} userData={userData} />
+                    )}
+                </Box>
             </Box>
         </Box>
     );
